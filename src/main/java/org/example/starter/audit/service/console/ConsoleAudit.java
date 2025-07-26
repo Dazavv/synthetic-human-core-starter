@@ -6,10 +6,11 @@ import org.example.starter.audit.model.AuditLog;
 import org.example.starter.audit.service.AuditLogger;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-@Component
-@ConditionalOnProperty(name = "audit.mode", havingValue = "CONSOLE")
+@Service
+@ConditionalOnProperty(name = "audit.mode", havingValue = "CONSOLE", matchIfMissing = true)
 public class ConsoleAudit implements AuditLogger {
 
     @Override

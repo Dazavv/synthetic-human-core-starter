@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-@Slf4j
 @Aspect
 @Component
 @RequiredArgsConstructor
