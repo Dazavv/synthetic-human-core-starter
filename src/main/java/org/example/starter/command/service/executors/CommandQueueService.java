@@ -16,7 +16,10 @@ public class CommandQueueService {
     private final CommandValidator validator;
     private final CommandExecutor commandExecutor;
 
-    public CommandQueueService(int corePoolSize, int maxPoolSize, int queueCapacity) {
+    public CommandQueueService(int corePoolSize,
+                               int maxPoolSize,
+                               int queueCapacity,
+                               CommandValidator validator) {
         this.commandsQueue = new ArrayBlockingQueue<>(queueCapacity);
         this.executor = new ThreadPoolExecutor(
                 corePoolSize,
@@ -27,7 +30,7 @@ public class CommandQueueService {
                 new ThreadPoolExecutor.AbortPolicy()
         );
         this.commandExecutor = new CommandExecutor();
-        this.validator = new CommandValidator();
+        this.validator = validator;
     }
 
     public void processCommand(Command command) {
