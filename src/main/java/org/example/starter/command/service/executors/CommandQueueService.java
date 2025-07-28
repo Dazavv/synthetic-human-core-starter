@@ -1,10 +1,12 @@
 package org.example.starter.command.service.executors;
 
+import jakarta.annotation.PreDestroy;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.example.starter.command.model.Command;
 import org.example.starter.command.model.CommandPriority;
 import org.example.starter.command.service.exceptions.QueueOverflowException;
-import org.example.starter.command.CommandValidator;
+import org.example.starter.command.service.validation.CommandValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.*;
@@ -13,6 +15,7 @@ import java.util.concurrent.*;
 @Service
 public class CommandQueueService {
 
+    @Getter
     private final BlockingQueue<Runnable> commandsQueue;
     private final ThreadPoolExecutor executor;
     private final CommandValidator validator;
@@ -51,6 +54,7 @@ public class CommandQueueService {
         }
     }
 
+    @PreDestroy
     public void shutdown() {
         executor.shutdown();
     }
